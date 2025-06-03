@@ -5,7 +5,7 @@
 #Keywords:    [#python, #minesweeper]  
 #Author:      "[Jon Ruttan](jonruttan@gmail.com)"  
 #Date:        2022-06-18  
-#Revision:    1 (2022-06-18)  
+#Revision:    2 (2025-06-02)  
 
 import random
 
@@ -27,9 +27,12 @@ class Minesweeper:
 
         mines = self._mines
         while mines > 0:
-            i = random.randrange(len(self._board))
+            x = random.randrange(self._width)
+            y = random.randrange(self._height)
+            i = y * self._width + x
             if self._board[i] != self._mine:
                 self._board[i] = self._mine
+                self.inc(x, y)
                 mines -= 1
 
     def inc(self, x, y):
@@ -39,14 +42,6 @@ class Minesweeper:
                 i = y2 + x1
                 if self._board[i] != self._mine:
                     self._board[i] += 1
-
-    def counts(self):
-        i = 0
-        for y in range(0, self._height):
-            for x in range(0, self._width):
-                if self._board[i] == self._mine:
-                    self.inc(x, y)
-                i += 1
 
     def hide(self):
         for i in range(0, self._width * self._height):
@@ -132,7 +127,6 @@ if __name__ == "__main__":
     (width, height, mines) = (tuple(int(i) for i in args) + (10, 10, 10))[:3]
 
     minesweeper = Minesweeper(width, height, mines)
-    minesweeper.counts()
     minesweeper.hide()
 
     while True:
