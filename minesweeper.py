@@ -51,7 +51,7 @@ class Minesweeper:
         for i in range(0, self._width * self._height):
             self._board[i] %= 10
 
-    def click(self, x, y):
+    def probe(self, x, y):
         l = {(x, y)}
 
         while len(l):
@@ -141,4 +141,5 @@ if __name__ == "__main__":
         if m > 0:
             minesweeper.mark(x, y)
         else:
-            minesweeper.click(x, y)
+            minesweeper.probe(x, y)
+
